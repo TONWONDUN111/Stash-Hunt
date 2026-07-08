@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're In — Stash Hunt™</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/stashhunt-coin-64.png">
+<link rel="apple-touch-icon" href="assets/stashhunt-coin-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2415;
+  --panel:#153323;
+  --panel2:#1B402C;
+  --line:rgba(212,175,55,.18);
+  --line-soft:rgba(168,176,188,.12);
+  --gold:#D4AF37;
+  --gold-bright:#F2CE68;
+  --silver:#A8B0BC;
+  --silver-dim:#6b7280;
+  --neon:#4ADE80;
+  --white:#F5F3EC;
+  --display:'Archivo',sans-serif;
+  --body:'Manrope',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--white);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold);color:var(--ink)}
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+h1,h2,h3{font-family:var(--display);font-stretch:110%;text-transform:uppercase;line-height:1.02;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* eyebrow */
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:16px 30px;border:1px solid var(--gold);cursor:pointer;
+  transition:all .25s ease;position:relative;white-space:nowrap;
+}
+.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-bright) 55%,var(--gold) 100%);color:#0e2415;border:none}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,175,55,.35)}
+.btn-ghost{background:transparent;color:var(--gold)}
+.btn-ghost:hover{background:rgba(212,175,55,.08);transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(14,36,21,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo .coin{width:26px;height:26px;border-radius:50%;box-shadow:0 0 14px rgba(212,175,55,.5)}
+.logo .tm{font-size:.55rem;vertical-align:super;color:var(--silver)}
+.nav-links{display:flex;gap:34px;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);transition:color .2s}
+.nav-links a:hover{color:var(--gold-bright)}
+.nav-cta{padding:10px 20px;font-size:.7rem}
+
+/* thanks section */
+.thanks-hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:160px 24px 100px;position:relative;overflow:hidden;
+}
+.thanks-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(1000px 500px at 78% 8%,rgba(74,222,128,.06),transparent 60%),
+    radial-gradient(900px 600px at 15% 90%,rgba(212,175,55,.09),transparent 60%),
+    var(--ink);
+}
+.thanks-content{position:relative;z-index:2;max-width:640px}
+.thanks-coin{
+  width:88px;height:88px;margin:0 auto 32px;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,var(--gold-bright) 0%,var(--gold) 45%,#7a621b 100%);
+  display:grid;place-items:center;box-shadow:0 0 40px rgba(212,175,55,.4);
+}
+.thanks-coin svg{width:40px;height:40px}
+.thanks-title{font-size:clamp(2rem,5vw,3.2rem);font-weight:900;font-stretch:115%;color:var(--white);margin-bottom:18px}
+.thanks-title em{font-style:normal;color:var(--gold-bright)}
+.thanks-copy{color:var(--silver);font-size:1.05rem;margin-bottom:40px}
+.thanks-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+footer{border-top:1px solid var(--line-soft);padding:32px 0;text-align:center}
+footer p{font-family:var(--mono);font-size:.68rem;letter-spacing:.15em;color:var(--silver-dim);text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo"><img class="coin" src="assets/stashhunt-coin-64.png" alt="" width="26" height="26">STASH HUNT<span class="tm">™</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#hunt">Current Hunt</a>
+      <a href="index.html#winners">Winners</a>
+      <a href="partners.html">Partners</a>
+      <a href="index.html#faq">FAQ</a>
+    </div>
+  </div>
+</nav>
+
+<section class="thanks-hero">
+  <div class="thanks-bg"></div>
+  <div class="thanks-content">
+    <div class="eyebrow" style="justify-content:center">Confirmed</div>
+    <div class="thanks-coin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#0e2415" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h1 class="thanks-title">You're <em>In.</em></h1>
+    <p class="thanks-copy">Thanks for reaching out — we've got your details. Keep an eye on your email (and your texts, if you left a number) for the next drop.</p>
+    <div class="thanks-actions">
+      <a href="index.html" class="btn btn-gold">Back To The Hunt →</a>
+      <a href="partners.html" class="btn btn-ghost">Partner With Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Stash Hunt™ — Find The Stash. Unlock The Reward.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stash Hunt™ Cannabis Edition — Find The Stash. Unlock The Reward.</title>
+<meta name="description" content="The city is full of hidden surprises. Follow the clues, discover the secret token, and unlock exclusive rewards from local businesses.">
+<link rel="canonical" href="https://stashhunts.info/">
+<meta property="og:title" content="Stash Hunt™ — Find The Stash. Unlock The Reward.">
+<meta property="og:description" content="A city-wide mystery reward hunt. Follow the clues, find the hidden token, redeem exclusive rewards.">
+<meta property="og:url" content="https://stashhunts.info/">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://stashhunts.info/assets/stashhunt-coin-1000.png">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/stashhunt-coin-64.png">
+<link rel="apple-touch-icon" href="assets/stashhunt-coin-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E2415;
+  --panel:#153323;
+  --panel2:#1B402C;
+  --line:rgba(212,175,55,.18);
+  --line-soft:rgba(168,176,188,.12);
+  --gold:#D4AF37;
+  --gold-bright:#F2CE68;
+  --silver:#A8B0BC;
+  --silver-dim:#6b7280;
+  --neon:#4ADE80;
+  --white:#F5F3EC;
+  --display:'Archivo',sans-serif;
+  --body:'Manrope',sans-serif;
+  --mono:'Space Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--white);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:var(--gold);color:var(--ink)}
+
+/* grain overlay */
+body::after{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1,h2,h3{font-family:var(--display);font-stretch:110%;text-transform:uppercase;line-height:1.02;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{position:relative}
+
+/* eyebrow / mono labels */
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+.eyebrow .idx{color:var(--silver-dim)}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:.82rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:16px 30px;border:1px solid var(--gold);cursor:pointer;
+  transition:all .25s ease;position:relative;white-space:nowrap;
+}
+.btn-gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-bright) 55%,var(--gold) 100%);color:#0e2415;border:none}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,175,55,.35)}
+.btn-ghost{background:transparent;color:var(--gold)}
+.btn-ghost:hover{background:rgba(212,175,55,.08);transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(14,36,21,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line-soft);
+}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:1.05rem;text-transform:uppercase;letter-spacing:.02em;display:flex;align-items:center;gap:10px}
+.logo .coin{width:26px;height:26px;border-radius:50%;box-shadow:0 0 14px rgba(212,175,55,.5)}
+.logo .tm{font-size:.55rem;vertical-align:super;color:var(--silver)}
+.nav-links{display:flex;gap:34px;align-items:center}
+.nav-links a{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--silver);transition:color .2s}
+.nav-links a:hover{color:var(--gold-bright)}
+.nav-cta{padding:10px 20px;font-size:.7rem}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--gold);font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;padding:8px 14px;cursor:pointer}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding:140px 0 80px;position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(1000px 500px at 78% 8%,rgba(74,222,128,.06),transparent 60%),
+    radial-gradient(900px 600px at 15% 90%,rgba(212,175,55,.09),transparent 60%),
+    var(--ink);
+}
+/* city skyline silhouette */
+.skyline{position:absolute;bottom:0;left:0;right:0;height:32vh;z-index:1;opacity:.55;pointer-events:none}
+.skyline svg{width:100%;height:100%;display:block}
+.hero-content{position:relative;z-index:2}
+.hero .eyebrow{justify-content:flex-start}
+.hero-brand{
+  font-size:clamp(3rem,9.5vw,8.2rem);font-weight:900;font-stretch:118%;
+  background:linear-gradient(180deg,var(--white) 30%,var(--silver) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:6px;
+}
+.hero-brand .stash{
+  background:linear-gradient(100deg,#8a6f1e 0%,var(--gold) 30%,var(--gold-bright) 50%,var(--gold) 70%,#8a6f1e 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shimmer 5s linear infinite;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-20% 0}}
+.hero-tag{
+  font-family:var(--mono);font-size:clamp(.9rem,1.8vw,1.25rem);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold-bright);margin:18px 0 22px;
+}
+.hero-tag .cursor{display:inline-block;width:.6em;height:1.1em;background:var(--neon);vertical-align:-0.15em;animation:blink 1s steps(1) infinite;margin-left:4px}
+@keyframes blink{50%{opacity:0}}
+.hero-sub{max-width:560px;color:var(--silver);font-size:1.05rem;margin-bottom:38px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:48px;margin-top:64px;flex-wrap:wrap}
+.hstat .num{font-family:var(--display);font-weight:900;font-size:1.7rem;color:var(--white)}
+.hstat .lbl{font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver-dim);margin-top:2px}
+
+/* floating token */
+.hero-token{
+  position:absolute;right:6%;top:50%;transform:translateY(-58%);z-index:2;
+  width:min(320px,26vw);aspect-ratio:1;display:grid;place-items:center;
+}
+.token-ring{position:absolute;inset:0;border:1px dashed rgba(212,175,55,.35);border-radius:50%;animation:spin 30s linear infinite}
+.token-ring.r2{inset:-11%;border-color:rgba(168,176,188,.15);animation-duration:48s;animation-direction:reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.token-coin-img{width:68%;animation:floaty 6s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(212,175,55,.45))}
+.token-coin{
+  width:62%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,var(--gold-bright) 0%,var(--gold) 45%,#7a621b 100%);
+  box-shadow:0 0 60px rgba(212,175,55,.35), inset 0 0 0 6px rgba(255,255,255,.12), inset 0 -14px 30px rgba(0,0,0,.35);
+  display:grid;place-items:center;position:relative;
+  animation:floaty 6s ease-in-out infinite;
+}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.token-coin .inner{
+  width:78%;aspect-ratio:1;border-radius:50%;border:1px solid rgba(14,36,21,.35);
+  display:grid;place-items:center;text-align:center;color:#141005;
+}
+.token-coin .ss{font-family:var(--display);font-weight:900;font-stretch:115%;font-size:clamp(1.4rem,3vw,2.4rem);line-height:1}
+.token-coin .sub{font-family:var(--mono);font-size:.5rem;letter-spacing:.3em;margin-top:6px}
+
+/* ---------- SECTION SHELL ---------- */
+.sec{padding:110px 0}
+.sec-head{margin-bottom:56px;max-width:720px}
+.sec-head h2{font-size:clamp(1.9rem,4.5vw,3.2rem);font-weight:900}
+.sec-head p{color:var(--silver);margin-top:16px;font-size:1.02rem}
+
+/* ---------- HOW IT WORKS ---------- */
+.how{background:linear-gradient(180deg,var(--ink),#123020 60%,var(--ink))}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-soft);border:1px solid var(--line-soft)}
+.step{background:var(--panel);padding:44px 34px;position:relative;transition:background .3s}
+.step:hover{background:var(--panel2)}
+.step .code{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;color:var(--silver-dim);margin-bottom:26px}
+.step .icon{width:56px;height:56px;margin-bottom:24px;display:grid;place-items:center;border:1px solid var(--line);color:var(--gold)}
+.step h3{font-size:1.4rem;margin-bottom:12px;color:var(--gold-bright)}
+.step p{color:var(--silver);font-size:.95rem}
+.step::after{
+  content:"";position:absolute;top:0;left:0;width:0;height:2px;background:var(--gold);transition:width .4s ease;
+}
+.step:hover::after{width:100%}
+
+/* ---------- CURRENT HUNT / DOSSIER ---------- */
+.hunt{background:var(--ink)}
+.dossier{
+  border:1px solid var(--line);background:linear-gradient(160deg,var(--panel) 0%,#112D1E 100%);
+  position:relative;overflow:hidden;
+}
+.dossier::before{
+  content:"ACTIVE HUNT";position:absolute;top:26px;right:-52px;transform:rotate(38deg);
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;color:var(--ink);
+  background:var(--neon);padding:6px 60px;font-weight:700;box-shadow:0 0 24px rgba(74,222,128,.4);
+}
+.dossier-top{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  padding:22px 34px;border-bottom:1px dashed var(--line);
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver-dim);
+}
+.dossier-top .live{color:var(--neon);display:flex;align-items:center;gap:8px}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--neon);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}50%{box-shadow:0 0 0 8px rgba(74,222,128,0)}}
+.dossier-body{display:grid;grid-template-columns:1.2fr .8fr;gap:0}
+.dossier-main{padding:44px 34px;border-right:1px dashed var(--line)}
+.dossier-main h3{font-size:clamp(1.6rem,3.4vw,2.4rem);color:var(--white);margin-bottom:8px}
+.dossier-main .partner{font-family:var(--mono);font-size:.78rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase;margin-bottom:28px}
+.field{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:13px 0;border-bottom:1px solid var(--line-soft);font-size:.92rem;align-items:baseline}
+.field .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--silver-dim)}
+.field .v{color:var(--silver)}
+.redact{
+  background:var(--silver-dim);color:transparent;border-radius:2px;cursor:help;user-select:none;
+  transition:all .3s ease;padding:0 6px;
+}
+.redact:hover,.redact:focus{background:rgba(74,222,128,.12);color:var(--neon)}
+.dossier-side{padding:44px 34px;display:flex;flex-direction:column;justify-content:center;gap:26px;background:rgba(212,175,55,.03)}
+.count-lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--silver-dim);text-align:center}
+.countdown{display:flex;gap:10px;justify-content:center}
+.cd-unit{text-align:center;min-width:64px;border:1px solid var(--line);padding:14px 8px 10px;background:var(--ink)}
+.cd-unit .n{font-family:var(--display);font-weight:900;font-size:1.9rem;color:var(--gold-bright);font-variant-numeric:tabular-nums}
+.cd-unit .u{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;color:var(--silver-dim);text-transform:uppercase;margin-top:4px}
+.dossier-side .btn{justify-content:center}
+
+/* ---------- WINNERS ---------- */
+.winners{background:linear-gradient(180deg,var(--ink),#123020 50%,var(--ink))}
+.win-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.win-card{
+  border:1px solid var(--line-soft);background:var(--panel);overflow:hidden;
+  transition:transform .3s,border-color .3s;
+}
+.win-card:hover{transform:translateY(-6px);border-color:var(--line)}
+.win-visual{
+  aspect-ratio:4/3;position:relative;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(circle at 50% 60%,rgba(212,175,55,.16),transparent 70%),linear-gradient(160deg,#183A28,#102A1B);
+}
+.win-visual .glyph{font-size:3.2rem;filter:drop-shadow(0 0 18px rgba(212,175,55,.45))}
+.win-visual .badge{
+  position:absolute;top:14px;left:14px;font-family:var(--mono);font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink);background:var(--gold);padding:4px 10px;font-weight:700;
+}
+.win-visual .play{
+  position:absolute;bottom:14px;right:14px;width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(245,243,236,.4);display:grid;place-items:center;color:var(--white);font-size:.7rem;
+  background:rgba(14,36,21,.5);backdrop-filter:blur(4px);
+}
+.win-info{padding:22px}
+.win-info .prize{font-family:var(--display);font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--gold-bright)}
+.win-info .meta{font-family:var(--mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--silver-dim);margin:8px 0 12px}
+.win-info .quote{color:var(--silver);font-size:.9rem;font-style:italic}
+
+/* ---------- PARTNERS ---------- */
+.partners{background:var(--ink);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.partner-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+.partner-copy h2{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;margin-bottom:20px}
+.partner-copy h2 em{font-style:normal;color:var(--gold-bright)}
+.partner-copy>p{color:var(--silver);margin-bottom:34px;font-size:1.02rem}
+.benefits{display:grid;gap:2px;background:var(--line-soft);border:1px solid var(--line-soft);margin-bottom:36px}
+.benefit{display:flex;gap:16px;align-items:center;background:var(--panel);padding:16px 20px;transition:background .25s}
+.benefit:hover{background:var(--panel2)}
+.benefit .b-ico{color:var(--gold);flex-shrink:0;width:20px;height:20px}
+.benefit span{font-size:.94rem;color:var(--white);font-weight:600}
+.benefit small{color:var(--silver-dim);font-size:.8rem;display:block;font-weight:400}
+.partner-visual{
+  border:1px solid var(--line);padding:40px;background:linear-gradient(160deg,var(--panel),#102A1B);
+  position:relative;
+}
+.pv-head{font-family:var(--mono);font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:var(--silver-dim);margin-bottom:26px;display:flex;justify-content:space-between}
+.pv-head span:last-child{color:var(--neon)}
+.pv-metric{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line-soft)}
+.pv-metric .m-lbl{color:var(--silver);font-size:.9rem}
+.pv-metric .m-val{font-family:var(--display);font-weight:900;font-size:1.5rem;color:var(--gold-bright)}
+.pv-bar{height:6px;background:var(--line-soft);margin-top:30px;overflow:hidden}
+.pv-bar i{display:block;height:100%;width:86%;background:linear-gradient(90deg,var(--gold),var(--neon))}
+.pv-foot{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;color:var(--silver-dim);margin-top:10px;text-transform:uppercase}
+
+/* ---------- SIGNUP ---------- */
+.signup{background:linear-gradient(180deg,#123020,var(--ink))}
+.signup-box{
+  max-width:760px;margin:0 auto;text-align:center;border:1px solid var(--line);
+  padding:64px 40px;background:radial-gradient(600px 300px at 50% 0%,rgba(212,175,55,.08),transparent 70%),var(--panel);
+}
+.signup-box h2{font-size:clamp(1.7rem,4vw,2.6rem);margin-bottom:14px}
+.signup-box>p{color:var(--silver);margin-bottom:36px}
+.signup-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;text-align:left}
+.signup-form .full{grid-column:1/-1}
+.sf-field label{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver-dim);display:block;margin-bottom:8px}
+.sf-field input{
+  width:100%;background:var(--ink);border:1px solid var(--line-soft);color:var(--white);
+  font-family:var(--body);font-size:.95rem;padding:14px 16px;transition:border-color .2s;
+}
+.sf-field input::placeholder{color:var(--silver-dim)}
+.sf-field input:focus{border-color:var(--gold);outline:none}
+.signup-form .btn{grid-column:1/-1;justify-content:center;margin-top:8px}
+.signup-fine{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;color:var(--silver-dim);margin-top:18px;text-transform:uppercase}
+
+/* ---------- FAQ ---------- */
+.faq-list{max-width:820px;margin:0 auto}
+details{border-bottom:1px solid var(--line-soft)}
+details summary{
+  cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:26px 4px;font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:1rem;letter-spacing:.02em;
+  transition:color .2s;
+}
+details summary::-webkit-details-marker{display:none}
+details summary:hover{color:var(--gold-bright)}
+details summary .plus{font-family:var(--mono);color:var(--gold);font-size:1.1rem;transition:transform .25s;flex-shrink:0}
+details[open] summary .plus{transform:rotate(45deg)}
+details[open] summary{color:var(--gold-bright)}
+details .ans{padding:0 4px 28px;color:var(--silver);font-size:.95rem;max-width:660px}
+
+/* ---------- FOOTER ---------- */
+footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
+.foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:54px}
+.foot-brand .logo{font-size:1.2rem;margin-bottom:12px}
+.foot-brand p{font-family:var(--mono);font-size:.72rem;letter-spacing:.15em;color:var(--gold);text-transform:uppercase}
+.socials{display:flex;gap:14px;margin-top:24px}
+.socials a{
+  width:42px;height:42px;border:1px solid var(--line-soft);display:grid;place-items:center;color:var(--silver);
+  transition:all .25s;
+}
+.socials a:hover{border-color:var(--gold);color:var(--gold-bright);transform:translateY(-3px)}
+.socials svg{width:18px;height:18px;fill:currentColor}
+.foot-links{display:flex;gap:70px;flex-wrap:wrap}
+.foot-col h4{font-family:var(--mono);font-size:.64rem;letter-spacing:.25em;text-transform:uppercase;color:var(--silver-dim);margin-bottom:18px}
+.foot-col a{display:block;color:var(--silver);font-size:.9rem;margin-bottom:12px;transition:color .2s}
+.foot-col a:hover{color:var(--gold-bright)}
+.foot-bottom{
+  border-top:1px solid var(--line-soft);padding-top:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;color:var(--silver-dim);text-transform:uppercase;
+}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:960px){
+  .hero-token{display:none}
+  .steps{grid-template-columns:1fr}
+  .dossier-body{grid-template-columns:1fr}
+  .dossier-main{border-right:none;border-bottom:1px dashed var(--line)}
+  .win-grid{grid-template-columns:1fr 1fr}
+  .partner-grid{grid-template-columns:1fr;gap:44px}
+}
+@media (max-width:640px){
+  .nav-links{display:none;position:absolute;top:68px;left:0;right:0;background:rgba(14,36,21,.97);flex-direction:column;padding:26px 24px;gap:22px;border-bottom:1px solid var(--line)}
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .win-grid{grid-template-columns:1fr}
+  .signup-form{grid-template-columns:1fr}
+  .sec{padding:80px 0}
+  .field{grid-template-columns:1fr;gap:4px}
+  .hero-stats{gap:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo"><img class="coin" src="assets/stashhunt-coin-64.png" alt="" width="26" height="26">STASH HUNT<span class="tm">™</span></a>
+    <div class="nav-links" id="navLinks">
+      <a href="#how">How It Works</a>
+      <a href="#hunt">Current Hunt</a>
+      <a href="#winners">Winners</a>
+      <a href="partners.html">Partners</a>
+      <a href="#faq">FAQ</a>
+      <a href="#signup" class="btn btn-gold nav-cta">Join The Hunt</a>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="skyline" aria-hidden="true">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#112D1E" d="M0 320V180h40v-40h30v60h50V120h20v-30h20v30h20v80h60V140h50v-40h20V80h20v20h20v40h50v60h40V150h60v-50h30v50h40v70h70V130h30V90h20v40h30v90h60V160h50v-60h20V70h25v30h20v60h55v80h50V170h45v-45h25v45h45v70h60V140h40v-40h25v40h35v100h70V150h50v-70h20V50h25v30h20v70h55v90h50v80z"/>
+      <g fill="#D4AF37" opacity=".35">
+        <rect x="76" y="152" width="4" height="4"/><rect x="182" y="130" width="4" height="4"/>
+        <rect x="330" y="170" width="4" height="4"/><rect x="464" y="150" width="4" height="4"/>
+        <rect x="612" y="180" width="4" height="4"/><rect x="748" y="140" width="4" height="4"/>
+        <rect x="905" y="160" width="4" height="4"/><rect x="1058" y="190" width="4" height="4"/>
+        <rect x="1210" y="140" width="4" height="4"/><rect x="1340" y="170" width="4" height="4"/>
+        <rect x="250" y="200" width="4" height="4"/><rect x="530" y="120" width="4" height="4"/>
+        <rect x="820" y="200" width="4" height="4"/><rect x="1130" y="120" width="4" height="4"/>
+      </g>
+      <g fill="#4ADE80" opacity=".4">
+        <rect x="410" y="110" width="4" height="4"/><rect x="700" y="95" width="4" height="4"/>
+        <rect x="990" y="105" width="4" height="4"/><rect x="1275" y="85" width="4" height="4"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="wrap hero-content">
+    <div class="eyebrow"><span class="idx">HUNT 01 // COMING SOON</span> CANNABIS EDITION · 21+ TO REDEEM</div>
+    <h1 class="hero-brand">STASH<br><span class="stash">HUNT™</span></h1>
+    <p class="hero-tag">Find The Stash. Unlock The Reward.<span class="cursor" aria-hidden="true"></span></p>
+    <p class="hero-sub">The city is full of hidden surprises. Follow the clues, discover the secret token, and unlock exclusive rewards from local businesses.</p>
+    <div class="hero-btns">
+      <a href="#signup" class="btn btn-gold">Join The Hunt →</a>
+      <a href="partners.html" class="btn btn-ghost">Become A Partner</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">HUNT 01</div><div class="lbl">The Founding Hunt</div></div>
+      <div class="hstat"><div class="num">DENVER</div><div class="lbl">Launch City</div></div>
+      <div class="hstat"><div class="num">FREE</div><div class="lbl">To Play, Always</div></div>
+    </div>
+  </div>
+
+  <div class="hero-token" aria-hidden="true">
+    <div class="token-ring"></div>
+    <div class="token-ring r2"></div>
+    <img class="token-coin-img" src="assets/stashhunt-coin-512.png" alt="">
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section class="sec how" id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="idx">01</span> The Protocol</div>
+      <h2>Three Moves. One Stash.</h2>
+      <p>Every hunt runs on the same simple system. No apps to download, no purchase required — just sharp eyes and fast feet.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="code">STEP_01</div>
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 8.5c-.7.3-1.5.5-2.3.6.8-.5 1.4-1.3 1.7-2.2-.8.5-1.6.8-2.5 1a4 4 0 0 0-6.9 3.6A11.4 11.4 0 0 1 3.7 7.2a4 4 0 0 0 1.2 5.3c-.6 0-1.3-.2-1.8-.5v.1a4 4 0 0 0 3.2 3.9 4 4 0 0 1-1.8.1 4 4 0 0 0 3.7 2.8A8 8 0 0 1 2 20.6 11.3 11.3 0 0 0 8.1 22c7.3 0 11.4-6.1 11.4-11.4v-.5c.8-.6 1.5-1.3 2-2.1z"/></svg>
+        </div>
+        <h3>Follow</h3>
+        <p>Follow Stash Hunt on social media for clues, announcements, and upcoming hunts. Every hint goes out to the whole city at the same moment.</p>
+      </div>
+      <div class="step reveal">
+        <div class="code">STEP_02</div>
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
+        </div>
+        <h3>Search</h3>
+        <p>Use the clues and hints to locate hidden tokens throughout the city. They're placed in public, legal, safe-to-reach spots — no digging, no trespassing.</p>
+      </div>
+      <div class="step reveal">
+        <div class="code">STEP_03</div>
+        <div class="icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 12v8H4v-8"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <h3>Claim</h3>
+        <p>Redeem your winning token through the approved partner business printed on it. Show up, verify, and walk out with your prize.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT HUNT -->
+<section class="sec hunt" id="hunt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="idx">02</span> Current Hunt</div>
+      <h2>Hunt Dossier // 01</h2>
+      <p>The Cannabis Edition founding hunt. Clues go out on social first — hover the redacted lines if you think you're ready. 21+ to redeem.</p>
+    </div>
+
+    <div class="dossier reveal">
+      <div class="dossier-top">
+        <span>FILE: SH-HUNT-01</span>
+        <span class="live"><span class="live-dot"></span>STATUS: ARMED</span>
+        <span>CLEARANCE: PUBLIC</span>
+      </div>
+      <div class="dossier-body">
+        <div class="dossier-main">
+          <h3>Get Your Green Here</h3>
+          <div class="partner">This Month's Sponsor // Gardens Dispensary</div>
+          <div class="field"><span class="k">Sponsor</span><span class="v">Gardens Dispensary — Regis · gardensdispensary.com</span></div>
+          <div class="field"><span class="k">Redemption</span><span class="v">3615 W 49th Ave, Denver, CO 80221 — winning token verified &amp; redeemed in store</span></div>
+          <div class="field"><span class="k">Featured Prize</span><span class="v">Exclusive prize package — full reveal at hunt launch</span></div>
+          <div class="field"><span class="k">Hunt Zone</span><span class="v">Denver Metro — <span class="redact" tabindex="0">zone announced with the first clue</span></span></div>
+          <div class="field"><span class="k">Token Type</span><span class="v">Gold Series S$ — single winner, first find takes all</span></div>
+          <div class="field"><span class="k">First Clue</span><span class="v"><span class="redact" tabindex="0">Where the old road bends and the mural watches, look low.</span></span></div>
+          <div class="field"><span class="k">Rules</span><span class="v">Public property only. No purchase necessary. Must be 21+ to redeem. Full rules released at hunt launch.</span></div>
+        </div>
+        <div class="dossier-side">
+          <div>
+            <div class="count-lbl">Hunt Goes Live In</div>
+            <div class="countdown" id="countdown" role="timer" aria-live="polite">
+              <div class="cd-unit"><div class="n" id="cd-d">00</div><div class="u">Days</div></div>
+              <div class="cd-unit"><div class="n" id="cd-h">00</div><div class="u">Hours</div></div>
+              <div class="cd-unit"><div class="n" id="cd-m">00</div><div class="u">Mins</div></div>
+              <div class="cd-unit"><div class="n" id="cd-s">00</div><div class="u">Secs</div></div>
+            </div>
+          </div>
+          <a href="#signup" class="btn btn-gold">Get Hunt Alerts</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WINNERS -->
+<section class="sec winners" id="winners">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="idx">03</span> Winners Gallery</div>
+      <h2>The Wall Starts With You.</h2>
+      <p>No winners yet — Hunt 01 hasn't happened. The first finder in Stash Hunt history gets this wall, the reveal video, and the spotlight. Forever first.</p>
+    </div>
+    <div class="win-grid">
+      <article class="win-card reveal">
+        <div class="win-visual"><span class="badge">Hunt 01</span><span class="glyph">🏆</span></div>
+        <div class="win-info">
+          <div class="prize">First Finder — Slot Open</div>
+          <div class="meta">Your name // Denver // ??:?? </div>
+          <p class="quote">The founding winner's story gets told here first.</p>
+        </div>
+      </article>
+      <article class="win-card reveal">
+        <div class="win-visual"><span class="badge">Reveal</span><span class="glyph">🎁</span><span class="play" aria-hidden="true">▶</span></div>
+        <div class="win-info">
+          <div class="prize">Prize Reveal Video</div>
+          <div class="meta">Filmed at Gardens Dispensary // Hunt 01</div>
+          <p class="quote">Every verified win gets a reveal video posted across our socials.</p>
+        </div>
+      </article>
+      <article class="win-card reveal">
+        <div class="win-visual"><span class="badge">History</span><span class="glyph">💎</span></div>
+        <div class="win-info">
+          <div class="prize">The Founding Hunt</div>
+          <div class="meta">One token // One city // One winner</div>
+          <p class="quote">Be part of Hunt 01 and say you were here before it blew up.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS TEASER -->
+<section class="sec partners" id="partners">
+  <div class="wrap">
+    <div class="partner-grid">
+      <div class="partner-copy reveal">
+        <div class="eyebrow"><span class="idx">04</span> For Businesses</div>
+        <h2>Turn Your Business Into <em>The Destination</em></h2>
+        <p>Stash Hunt creates interactive marketing campaigns that increase brand awareness, social engagement, and customer traffic for local businesses. Your storefront becomes the finish line of a city-wide event — and we handle the whole campaign.</p>
+        <a href="partners.html" class="btn btn-gold">Become A Partner →</a>
+      </div>
+      <div class="partner-visual reveal" aria-hidden="true">
+        <div class="pv-head"><span>PARTNER PACKAGE // HIGHLIGHTS</span><span>● HUNT 01</span></div>
+        <div class="pv-metric"><span class="m-lbl">Featured in every clue &amp; hunt post</span><span class="m-val">✓</span></div>
+        <div class="pv-metric"><span class="m-lbl">Winner reveal video filmed on-site</span><span class="m-val">✓</span></div>
+        <div class="pv-metric"><span class="m-lbl">Cross-posted: TikTok, IG, YouTube, FB</span><span class="m-val">✓</span></div>
+        <div class="pv-bar"><i></i></div>
+        <div class="pv-foot">Founding partner slots · Denver launch · full details on the partner page</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="sec signup" id="signup">
+  <div class="wrap">
+    <div class="signup-box reveal">
+      <div class="eyebrow" style="justify-content:center"><span class="idx">05</span> Hunt Alerts</div>
+      <h2>Never Miss The Next Hunt</h2>
+      <p>Clues hit social first — but alert subscribers get the hunt time before anyone else. Free to join. Easy to win.</p>
+      <form class="signup-form" name="hunt-alerts" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks.html">
+        <input type="hidden" name="form-name" value="hunt-alerts">
+        <p style="display:none"><label>Don't fill this out: <input name="bot-field"></label></p>
+        <div class="sf-field">
+          <label for="f-name">Name</label>
+          <input id="f-name" type="text" name="name" placeholder="Your name" required autocomplete="name">
+        </div>
+        <div class="sf-field">
+          <label for="f-phone">Phone Number</label>
+          <input id="f-phone" type="tel" name="phone" placeholder="(555) 555-5555" autocomplete="tel">
+        </div>
+        <div class="sf-field full">
+          <label for="f-email">Email</label>
+          <input id="f-email" type="email" name="email" placeholder="you@email.com" required autocomplete="email">
+        </div>
+        <button type="submit" class="btn btn-gold">Unlock Hunt Alerts →</button>
+      </form>
+      <p class="signup-fine">By signing up you agree to receive hunt alerts. Unsubscribe anytime. We never sell your info.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow"><span class="idx">06</span> Intel</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details>
+        <summary>How do I participate? <span class="plus">+</span></summary>
+        <div class="ans">Follow Stash Hunt on social media and sign up for hunt alerts. When a hunt goes live, we release clues publicly. Use them to track down the hidden token anywhere in the announced city zone. It's free to play — no purchase, no app, no entry fee.</div>
+      </details>
+      <details>
+        <summary>Where are tokens hidden? <span class="plus">+</span></summary>
+        <div class="ans">Tokens are always hidden in publicly accessible, legal, and safe locations — parks, plazas, sidewalks, murals, and landmarks. Never on private property, never anywhere dangerous, and never anywhere that requires digging, climbing, or trespassing. If a clue seems to point somewhere off-limits, you're reading it wrong.</div>
+      </details>
+      <details>
+        <summary>How do prizes get redeemed? <span class="plus">+</span></summary>
+        <div class="ans">Every winning token is verified and redeemed at our official redemption center, Gardens Dispensary in Denver. Bring the token in, staff verify it against the official hunt registry, and your prize is released on the spot. You must be 21+ with valid ID to redeem. If you're up for it, we film the reveal for the Winners Gallery.</div>
+      </details>
+      <details>
+        <summary>How can businesses partner? <span class="plus">+</span></summary>
+        <div class="ans">Local businesses can sponsor a hunt, contribute a prize, or become an official redemption location. Partners get featured placement in clues, social content, and winner reveal videos. Head to our Partner Program page or reach out directly and we'll send the partnership deck.</div>
+      </details>
+      <details>
+        <summary>What are the rules? <span class="plus">+</span></summary>
+        <div class="ans">Play safe, play legal, play fair. Respect public and private property, obey all traffic laws, and don't disturb businesses or residents while searching. One token per hunt, first verified find wins. Anyone can hunt, but you must be 21+ with valid ID to redeem a prize at the redemption center. Full official rules are posted with every hunt announcement.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo"><img class="coin" src="assets/stashhunt-coin-64.png" alt="" width="26" height="26">STASH HUNT<span class="tm">™</span></div>
+        <p>"Find The Stash. Unlock The Reward."</p>
+        <div class="socials">
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.6 6.7a4.8 4.8 0 0 1-3.8-4.4V2h-3.3v13.2a2.8 2.8 0 1 1-2-2.7V9.1a6.1 6.1 0 1 0 5.3 6V8.7a8 8 0 0 0 4.4 1.3V6.8l-.6-.1z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3c1.2-.1 1.6-.1 4.8-.1zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.4a1.4 1.4 0 1 0 0-2.9 1.4 1.4 0 0 0 0 2.9z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3V12h3V9.4c0-3 1.8-4.7 4.6-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 .9-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>The Hunt</h4>
+          <a href="#how">How It Works</a>
+          <a href="#hunt">Current Hunt</a>
+          <a href="#winners">Winners</a>
+          <a href="#faq">Rules &amp; FAQ</a>
+        </div>
+        <div class="foot-col">
+          <h4>Business</h4>
+          <a href="partners.html">Partner Program</a>
+          <a href="mailto:tonwondun@gmail.com?subject=Stash%20Hunt%20Partnership">Email Us</a>
+          <a href="tel:+13035550000">Call Us</a><!-- TODO: replace with Andy's real number -->
+        </div>
+        <div class="foot-col">
+          <h4>Legal</h4>
+          <a href="#faq">Official Rules</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> Stash Hunt™. All rights reserved.</span>
+      <span>Hide well. Hunt hard. Claim loud.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Countdown — set to next hunt (12 days from first visit-ish; hardcode a real date before launch)
+(function(){
+  var target = new Date();
+  target.setDate(target.getDate() + 12);
+  target.setHours(18,0,0,0); // 6:00 PM hunt
+  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),
+      m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
+  function pad(n){return String(n).padStart(2,'0')}
+  function tick(){
+    var diff = target - new Date();
+    if(diff<0)diff=0;
+    d.textContent=pad(Math.floor(diff/864e5));
+    h.textContent=pad(Math.floor(diff/36e5)%24);
+    m.textContent=pad(Math.floor(diff/6e4)%60);
+    s.textContent=pad(Math.floor(diff/1e3)%60);
+  }
+  tick(); setInterval(tick,1000);
+})();
+
+// Mobile menu
+(function(){
+  var btn=document.getElementById('menuBtn'),links=document.getElementById('navLinks');
+  btn.addEventListener('click',function(){
+    var open=links.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+  links.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){links.classList.remove('open');btn.setAttribute('aria-expanded','false')});
+  });
+})();
+
+// Scroll reveal
+(function(){
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});return}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+})();
+
+// Footer year
+document.getElementById('yr').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
