@@ -27,15 +27,6 @@
     <filter id="embossUp" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="-2.5" stdDeviation="0.8" flood-color="#4A390E" flood-opacity="0.85"/>
     </filter>
-    <filter id="green3D" x="-50%" y="-50%" width="200%" height="200%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
-      <feOffset dx="0" dy="8" result="offsetblur"/>
-      <feFlood flood-color="#0D6E3A" flood-opacity="0.5" result="offsetcolor"/>
-      <feComposite in="offsetcolor" in2="offsetblur" operator="in" result="offsetblur"/>
-      <feComposite in="offsetblur" in2="SourceGraphic" operator="over"/>
-    </filter>
-    <path id="arcTop" d="M 500,500 m -352,0 a 352,352 0 1,1 704,0"/>
-    <path id="arcBottom" d="M 500,500 m -352,0 a 352,352 0 1,0 704,0"/>
   </defs>
 
   <!-- coin edge / reeding -->
@@ -56,19 +47,25 @@
     <ellipse cx="330" cy="270" rx="130" ry="60" fill="#FFF6CE" opacity=".35" transform="rotate(-32 330 270)"/>
   </g>
 
-  <!-- STASH HUNT arc top with black outline and green 3D -->
-  <text font-family="Arial Black, Arial" font-weight="900" font-size="104" letter-spacing="10" fill="#8A6D1E" stroke="#1a1a1a" stroke-width="3" filter="url(#green3D)">
+  <!-- curved text paths -->
+  <defs>
+    <path id="arcTop" d="M 500,500 m -352,0 a 352,352 0 1,1 704,0"/>
+    <path id="arcBottom" d="M 500,500 m -352,0 a 352,352 0 1,0 704,0"/>
+  </defs>
+
+  <!-- STASH HUNT arc top (embossed) -->
+  <text font-family="Arial Black, Arial" font-weight="900" font-size="104" letter-spacing="10" fill="#8A6D1E" filter="url(#embossDown)">
     <textPath href="#arcTop" startOffset="50%" text-anchor="middle">STASH HUNT</textPath>
   </text>
 
-  <!-- bottom arc: CANNABIS EDITION in green with 3D depth -->
-  <text font-family="Arial Black, Arial" font-weight="900" font-size="62" letter-spacing="16" fill="#1BB854" filter="url(#green3D)">
+  <!-- bottom arc: stars + 21+ -->
+  <text font-family="Arial Black, Arial" font-weight="900" font-size="62" letter-spacing="16" fill="#8A6D1E" filter="url(#embossDown)">
     <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">★ CANNABIS EDITION ★</textPath>
   </text>
 
-  <!-- center leaf: green with black outline -->
+  <!-- center leaf, embossed -->
   <g transform="translate(500 524)">
-    <g fill="#1BB854" stroke="#1a1a1a" stroke-width="1.5" filter="url(#embossUp)" transform="scale(2.35)">
+    <g fill="#8A6D1E" filter="url(#embossUp)" transform="scale(2.35)">
       <path d="M0 -62 C 7 -40 7 -18 0 6 C -7 -18 -7 -40 0 -62 Z"/>
       <g transform="rotate(38)"><path d="M0 -56 C 6 -37 6 -16 0 4 C -6 -16 -6 -37 0 -56 Z"/></g>
       <g transform="rotate(-38)"><path d="M0 -56 C 6 -37 6 -16 0 4 C -6 -16 -6 -37 0 -56 Z"/></g>
@@ -80,9 +77,6 @@
     </g>
   </g>
 
-  <!-- mintmark: stacked 2026 over +21 -->
-  <text x="500" y="700" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="54" fill="#8A6D1E" filter="url(#embossDown)">
-    <tspan x="500" dy="0">2026</tspan>
-    <tspan x="500" dy="70">+21</tspan>
-  </text>
+  <!-- small S$ mintmark and 21+ -->
+  <text x="500" y="806" text-anchor="middle" font-family="Georgia, serif" font-weight="700" font-size="54" fill="#8A6D1E" filter="url(#embossDown)">S$ · 21+</text>
 </svg>
