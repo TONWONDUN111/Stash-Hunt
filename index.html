@@ -18,16 +18,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Manrope:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0E2415;
-  --panel:#153323;
-  --panel2:#1B402C;
+  --ink:#0A0A14;
+  --panel:#1A1030;
+  --panel2:#241645;
   --line:rgba(212,175,55,.18);
   --line-soft:rgba(168,176,188,.12);
-  --gold:#D4AF37;
-  --gold-bright:#F2CE68;
-  --silver:#A8B0BC;
-  --silver-dim:#6b7280;
-  --neon:#4ADE80;
+  --gold:#9333EA;
+  --gold-bright:#06B6D4;
+  --silver:#FFFFFF;
+  --silver-dim:#A5A5C0;
+  --neon:#06B6D4;
   --white:#F5F3EC;
   --display:'Archivo',sans-serif;
   --body:'Manrope',sans-serif;
@@ -477,9 +477,9 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
       <div class="dossier-body">
         <div class="dossier-main">
           <h3>Get Your Green Here</h3>
-          <div class="partner">This Month's Sponsor // Gardens Dispensary</div>
-          <div class="field"><span class="k">Sponsor</span><span class="v">Gardens Dispensary — Regis · gardensdispensary.com</span></div>
-          <div class="field"><span class="k">Redemption</span><span class="v">3615 W 49th Ave, Denver, CO 80221 — winning token verified &amp; redeemed in store</span></div>
+          <div class="partner">This Month's Sponsor // Trap House Cannabis</div>
+          <div class="field"><span class="k">Sponsor</span><span class="v">Trap House Cannabis — Havana · traphousecolorado.com</span></div>
+          <div class="field"><span class="k">Redemption</span><span class="v">605 S Havana St, Denver, CO 80012 — winning token verified &amp; redeemed in store</span></div>
           <div class="field"><span class="k">Featured Prize</span><span class="v">Exclusive prize package — full reveal at hunt launch</span></div>
           <div class="field"><span class="k">Hunt Zone</span><span class="v">Denver Metro — <span class="redact" tabindex="0">zone announced with the first clue</span></span></div>
           <div class="field"><span class="k">Token Type</span><span class="v">Gold Series S$ — single winner, first find takes all</span></div>
@@ -524,7 +524,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
         <div class="win-visual"><span class="badge">Reveal</span><span class="glyph">🎁</span><span class="play" aria-hidden="true">▶</span></div>
         <div class="win-info">
           <div class="prize">Prize Reveal Video</div>
-          <div class="meta">Filmed at Gardens Dispensary // Hunt 01</div>
+          <div class="meta">Filmed at Trap House Cannabis // Hunt 01</div>
           <p class="quote">Every verified win gets a reveal video posted across our socials.</p>
         </div>
       </article>
@@ -609,7 +609,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
       </details>
       <details>
         <summary>How do prizes get redeemed? <span class="plus">+</span></summary>
-        <div class="ans">Every winning token is verified and redeemed at our official redemption center, Gardens Dispensary in Denver. Bring the token in, staff verify it against the official hunt registry, and your prize is released on the spot. You must be 21+ with valid ID to redeem. If you're up for it, we film the reveal for the Winners Gallery.</div>
+        <div class="ans">Every winning token is verified and redeemed at our official redemption center, Trap House Cannabis on Havana. Bring the token in, staff verify it against the official hunt registry, and your prize is released on the spot. You must be 21+ with valid ID to redeem. If you're up for it, we film the reveal for the Winners Gallery.</div>
       </details>
       <details>
         <summary>How can businesses partner? <span class="plus">+</span></summary>
@@ -649,7 +649,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
           <h4>Business</h4>
           <a href="partners.html">Partner Program</a>
           <a href="mailto:tonwondun@gmail.com?subject=Stash%20Hunt%20Partnership">Email Us</a>
-          <a href="tel:+13035550000">Call Us</a><!-- TODO: replace with Andy's real number -->
+          <a href="tel:+13034848202">Call Us</a><!-- TODO: replace with Andy's real number -->
         </div>
         <div class="foot-col">
           <h4>Legal</h4>
@@ -669,9 +669,9 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0B1D11}
 <script>
 // Countdown — set to next hunt (12 days from first visit-ish; hardcode a real date before launch)
 (function(){
-  var target = new Date();
-  target.setDate(target.getDate() + 12);
-  target.setHours(18,0,0,0); // 6:00 PM hunt
+  var target = new Date("2026-07-26T20:00:00-06:00");
+  
+   // 6:00 PM hunt
   var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),
       m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
   function pad(n){return String(n).padStart(2,'0')}
