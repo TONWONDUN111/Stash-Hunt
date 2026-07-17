@@ -80,7 +80,7 @@ section{position:relative}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--neon);outline-offset:2px}
 
 /* ---------- NAV ---------- */
-nav{
+nav{top:52px !important;
   position:fixed;top:0;left:0;right:0;z-index:100;
   background:rgba(10,10,20,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line-soft);
@@ -98,7 +98,7 @@ nav{
 /* ---------- HERO ---------- */
 .hero{
   min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-  padding:140px 0 80px;position:relative;overflow:hidden;
+  padding:190px 0 80px;position:relative;overflow:hidden;
 }
 .hero-bg{
   position:absolute;inset:0;z-index:0;
@@ -214,7 +214,7 @@ nav{
 .redact:hover,.redact:focus{background:rgba(6,182,212,.12);color:var(--neon)}
 .dossier-side{padding:44px 34px;display:flex;flex-direction:column;justify-content:center;gap:26px;background:rgba(147,51,234,.03)}
 .count-lbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.25em;text-transform:uppercase;color:var(--silver-dim);text-align:center}
-.countdown{display:flex;gap:10px;justify-content:center;position:sticky;top:0;z-index:9999;background:var(--ink);border-bottom:1px solid var(--line);padding:10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.countdown-bar{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;gap:10px;justify-content:center;background:var(--ink);border-bottom:1px solid var(--line);padding:10px 0;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
 .cd-unit{text-align:center;min-width:64px;border:1px solid var(--line);padding:14px 8px 10px;background:var(--ink)}
 .cd-unit .n{font-family:var(--display);font-weight:900;font-size:1.9rem;color:var(--gold-bright);font-variant-numeric:tabular-nums}
 .cd-unit .u{font-family:var(--mono);font-size:.55rem;letter-spacing:.2em;color:var(--silver-dim);text-transform:uppercase;margin-top:4px}
@@ -361,6 +361,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
 </head>
 <body>
 
+<div class="countdown-bar" id="countdownBar"><div class="cd-unit"><div class="n" id="cd-d2">00</div><div class="u">Days</div></div><div class="cd-unit"><div class="n" id="cd-h2">00</div><div class="u">Hours</div></div><div class="cd-unit"><div class="n" id="cd-m2">00</div><div class="u">Mins</div></div><div class="cd-unit"><div class="n" id="cd-s2">00</div><div class="u">Secs</div></div></div>
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -483,6 +484,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
           <div class="field"><span class="k">Featured Prize</span><span class="v">Exclusive prize package — full reveal at hunt launch</span></div>
           <div class="field"><span class="k">Hunt Zone</span><span class="v">Denver Metro — <span class="redact" tabindex="0">zone announced with the first clue</span></span></div>
           <div class="field"><span class="k">Token Type</span><span class="v">Gold Series S$ — single winner, first find takes all</span></div>
+          <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--line)">
+            <div class="partner">Official Sponsor // All Day Rooter</div>
+            <div class="field"><span class="k">Sponsor</span><span class="v">All Day Rooter — Colorado · alldayrooter.com</span></div>
+            <div class="field"><span class="k">Phone</span><span class="v">(720) 303-5568 · 24/7 Emergency Service</span></div>
+          </div>
           <div class="field"><span class="k">First Clue</span><span class="v"><span class="redact" tabindex="0">Where the old road bends and the mural watches, look low.</span></span></div>
           <div class="field"><span class="k">Rules</span><span class="v">Public property only. No purchase necessary. Must be 21+ to redeem. Full rules released at hunt launch.</span></div>
         </div>
@@ -672,8 +678,8 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
   var target = new Date("2026-07-26T20:00:00-06:00");
   
    // 6:00 PM hunt
-  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),
-      m=document.getElementById('cd-m'),s=document.getElementById('cd-s');
+  var d=document.getElementById('cd-d'),h=document.getElementById('cd-h'),d2=document.getElementById('cd-d2'),h2=document.getElementById('cd-h2'),
+      m=document.getElementById('cd-m'),s=document.getElementById('cd-s'),m2=document.getElementById('cd-m2'),s2=document.getElementById('cd-s2');
   function pad(n){return String(n).padStart(2,'0')}
   function tick(){
     var diff = target - new Date();
@@ -681,7 +687,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
     d.textContent=pad(Math.floor(diff/864e5));
     h.textContent=pad(Math.floor(diff/36e5)%24);
     m.textContent=pad(Math.floor(diff/6e4)%60);
-    s.textContent=pad(Math.floor(diff/1e3)%60);
+    s.textContent=pad(Math.floor(diff/1e3)%60);if(d2){d2.textContent=d.textContent;h2.textContent=h.textContent;m2.textContent=m.textContent;s2.textContent=s.textContent;}
   }
   tick(); setInterval(tick,1000);
 })();
