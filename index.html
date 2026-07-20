@@ -138,6 +138,10 @@ nav{top:84px !important;
 .hstat .lbl{font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--silver-dim);margin-top:2px}
 
 /* floating token */
+.hero-token-left{position:absolute;left:-8%;top:50%;transform:translateY(-50%);width:clamp(180px,28vw,340px);aspect-ratio:1;z-index:1;display:flex;align-items:center;justify-content:center}
+.hero-token-left .token-ring{position:absolute;inset:0;border:1px dashed rgba(16,185,129,.35);border-radius:50%;animation:spin 30s linear infinite}
+.hero-token-left .r2{inset:-11%;border-color:rgba(147,51,234,.15);animation-duration:48s;animation-direction:reverse}
+.hero-token-left img{width:68%;animation:floaty 6s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(16,185,129,.45))}
 .hero-token{
   position:absolute;right:6%;top:50%;transform:translateY(-58%);z-index:2;
   width:min(320px,26vw);aspect-ratio:1;display:grid;place-items:center;
@@ -340,7 +344,11 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
 
 /* ---------- RESPONSIVE ---------- */
 @media (max-width:960px){
-  .hero-token{display:none}
+  .hero-token-left{position:absolute;left:-8%;top:50%;transform:translateY(-50%);width:clamp(180px,28vw,340px);aspect-ratio:1;z-index:1;display:flex;align-items:center;justify-content:center}
+.hero-token-left .token-ring{position:absolute;inset:0;border:1px dashed rgba(16,185,129,.35);border-radius:50%;animation:spin 30s linear infinite}
+.hero-token-left .r2{inset:-11%;border-color:rgba(147,51,234,.15);animation-duration:48s;animation-direction:reverse}
+.hero-token-left img{width:68%;animation:floaty 6s ease-in-out infinite;filter:drop-shadow(0 0 50px rgba(16,185,129,.45))}
+.hero-token{display:none}
   .steps{grid-template-columns:1fr}
   .dossier-body{grid-template-columns:1fr}
   .dossier-main{border-right:none;border-bottom:1px dashed var(--line)}
@@ -416,6 +424,7 @@ footer{border-top:1px solid var(--line);padding:70px 0 40px;background:#0A0A14}
     </div>
   </div>
 
+  <div class="hero-token-left" aria-hidden="true"><div class="token-ring"></div><div class="token-ring r2"></div><img src="assets/stashhunt-coin-green.svg" alt=""></div>
   <div class="hero-token" aria-hidden="true">
     <div class="token-ring"></div>
     <div class="token-ring r2"></div>
